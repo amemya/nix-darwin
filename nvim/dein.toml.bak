@@ -1,0 +1,78 @@
+[[plugins]]
+repo = 'shougo/dein.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+
+[[plugins]]
+repo = 'lambdalisue/nerdfont.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-git-status.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-renderer-nerdfont.vim'
+hook_add = '''
+  let g:fern#renderer = 'nerdfont'
+  '''
+
+[[plugins]]
+repo = 'lambdalisue/glyph-palette.vim'
+
+hook_add = '''
+  augroup my-glyph-palette
+    autocmd! *
+    autocmd FileType fern call glyph_palette#apply()
+    autocmd FileType nerdtree,startify call glyph_palette#apply()
+  augroup END
+'''
+
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+on_event = ['BufRead', 'BufNewFile']
+hook_post_update = 'TSUpdate'
+hook_source = '''
+  lua <<EOF
+    require'nvim-treesitter.configs'.setup {
+      ensure_installed = { "c", "lua", "python", "go", "javascript", "typescript", "toml", "markdown" },
+      highlight = {
+        enable = true,
+      },
+    }
+EOF
+'''
+
+[[plugins]]
+repo = 'nvim-lua/plenary.nvim'
+
+[[plugins]]
+repo = 'nvim-telescope/telescope.nvim'
+hook_add = '''
+  nnoremap <leader>ff <cmd>Telescope find_files<cr>
+  nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+  nnoremap <leader>fb <cmd>Telescope buffers<cr>
+'''
+
+# [[plugins]]
+# repo = 'folke/tokyonight.nvim'
+# hook_add = '''
+#   autocmd VimEnter * ++nested colorscheme tokyonight
+# '''
+
+[[plugins]]
+repo = 'Mofiqul/vscode.nvim'
+hook_add = '''
+  lua <<EOF
+    vim.o.background = 'dark'
+    local c = require('vscode.colors').get_colors()
+    require('vscode').setup({
+      transparent = false,
+      italic_comments = true,
+    })
+    vim.cmd.colorscheme "vscode"
+EOF
+'''
+
+
+
+
