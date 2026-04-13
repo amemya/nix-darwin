@@ -10,7 +10,8 @@
       nrs = "sudo darwin-rebuild switch --flake ~/.config/nix-darwin";
       cls = "clear";
       "えぃt" = "exit";
-      rm = "rm -i";
+      rm = "gomi";
+
     };
 
     sessionVariables = {

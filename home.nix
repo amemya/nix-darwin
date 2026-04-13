@@ -15,6 +15,7 @@
   #Packages
   home.packages = with pkgs; [
     github-copilot-cli
+    gomi
     sqlitebrowser
     iperf3
     eza
