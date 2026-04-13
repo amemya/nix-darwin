@@ -14,8 +14,11 @@
 
   #Packages
   home.packages = with pkgs; [
+    gcc
+    gnumake
     github-copilot-cli
     gomi
+    tree-sitter
     sqlitebrowser
     iperf3
     eza
