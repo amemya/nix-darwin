@@ -6,6 +6,7 @@
     ./home/git.nix
     ./home/starship.nix
     ./home/neovim.nix
+    ./home/tex.nix
   ];
 
   home.username = "amemiya";
@@ -13,6 +14,8 @@
 
   #Packages
   home.packages = with pkgs; [
+    github-copilot-cli
+    sqlitebrowser
     iperf3
     eza
     exiftool
@@ -26,6 +29,7 @@
     nodejs
     openjdk
     _7zz
+    dotnet-sdk
     sl
     uv
     gauche
