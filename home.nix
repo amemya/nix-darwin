@@ -40,10 +40,15 @@
     gh
     htop
     gnupg
+    pinentry_mac
     ffmpeg
     fastfetch
     zig
   ];
+
+  home.file.".gnupg/gpg-agent.conf".text = ''
+    pinentry-program ${pkgs.pinentry_mac}/bin/pinentry-mac
+  '';
 
   home.stateVersion = "24.11";
   programs.home-manager.enable = true;
