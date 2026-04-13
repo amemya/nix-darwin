@@ -11,6 +11,10 @@
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, }:
   let
+    # Automatically detect the hostname of the current machine.
+    # Read from a temp file written by the nrs alias before darwin-rebuild runs.
+    hostname = builtins.replaceStrings ["\n"] [""]
+      (builtins.readFile /tmp/.nix-darwin-hostname);
     configuration = { pkgs, ... }: {
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
@@ -37,7 +41,8 @@
       system.stateVersion = 6;
 
       # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "aarch64-darwin";
+      # Automatically detect Intel (x86_64-darwin) or Apple Silicon (aarch64-darwin).
+      nixpkgs.hostPlatform = builtins.currentSystem;
       nixpkgs.config.allowUnfree = true;
       
       #brew
@@ -67,8 +72,8 @@
   in
   {
     # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#Amemiyas-MacBook-Air
-    darwinConfigurations."Amemiyas-MacBook-Air" = nix-darwin.lib.darwinSystem {
+    # $ darwin-rebuild switch --flake . --impure
+    darwinConfigurations.${hostname} = nix-darwin.lib.darwinSystem {
       modules =
       [ configuration 
         home-manager.darwinModules.home-manager

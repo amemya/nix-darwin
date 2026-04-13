@@ -7,7 +7,7 @@
     shellAliases = {
       ll = "ls -la";
       ls = "eza --icons";
-      nrs = "sudo darwin-rebuild switch --flake ~/.config/nix-darwin";
+      nrs = "hostname -s > /tmp/.nix-darwin-hostname && sudo darwin-rebuild switch --flake ~/.config/nix-darwin --impure";
       cls = "clear";
       "えぃt" = "exit";
       rm = "gomi";
@@ -20,8 +20,12 @@
     };
 
     profileExtra = ''
-      # Homebrew
-      eval "$(/opt/homebrew/bin/brew shellenv)"
+      # Homebrew (auto-detect Intel or Apple Silicon)
+      if [ "$(uname -m)" = "arm64" ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+      else
+        eval "$(/usr/local/bin/brew shellenv)"
+      fi
     '';
 
     initContent = ''

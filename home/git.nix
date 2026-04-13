@@ -7,7 +7,7 @@
 
     signing = {
       format = "openpgp";
-      key = "63863DE0E1F372AD";
+      key = "";
       signByDefault = true;
     };
 
@@ -15,8 +15,8 @@
 
     settings = {
       user = {
-        name = "amemya";
-        email = "me@amemiya.blog";
+        name = "";
+        email = "";
       };
       init.defaultBranch = "main";
     };
