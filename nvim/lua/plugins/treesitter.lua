@@ -1,15 +1,17 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    event = { "BufReadPost", "BufNewFile" },
+    lazy = false,
     config = function()
-      require('nvim-treesitter.configs').setup {
-        ensure_installed = { "c", "lua", "python", "go", "javascript", "typescript", "toml", "markdown" },
-        highlight = {
-          enable = true,
-        },
-      }
+      local ok, treesitter = pcall(require, 'nvim-treesitter.configs')
+      if ok then
+        treesitter.setup {
+          auto_install = false,
+          highlight = {
+            enable = true,
+          },
+        }
+      end
     end,
   }
 }
