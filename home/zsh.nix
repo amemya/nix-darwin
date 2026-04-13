@@ -7,7 +7,7 @@
     shellAliases = {
       ll = "ls -la";
       ls = "eza --icons";
-      nrs = "hostname -s > /tmp/.nix-darwin-hostname && sudo darwin-rebuild switch --flake ~/.config/nix-darwin --impure";
+      nrs = "scutil --get LocalHostName > /tmp/.nix-darwin-hostname && sudo darwin-rebuild switch --flake ~/.config/nix-darwin --impure";
       cls = "clear";
       "えぃt" = "exit";
       rm = "gomi";
