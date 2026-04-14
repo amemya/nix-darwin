@@ -22,6 +22,7 @@
         email = "me@amemiya.blog";
       };
       init.defaultBranch = "main";
+      gpg.program = "${pkgs.gnupg}/bin/gpg";
     };
   };
 }
