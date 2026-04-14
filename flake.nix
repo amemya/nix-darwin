@@ -28,6 +28,12 @@
       # Enable alternative shell support in nix-darwin.
       programs.zsh.enable = true;
 
+      # Ensure GUI apps (VS Code etc.) can find Nix-managed binaries
+      environment.systemPath = [
+        "/etc/profiles/per-user/amemiya/bin"
+        "/run/current-system/sw/bin"
+      ];
+
       # Install Nerd Fonts
       fonts.packages = [
         pkgs.hackgen-nf-font
