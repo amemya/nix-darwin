@@ -7,6 +7,7 @@
     ./home/starship.nix
     ./home/neovim.nix
     ./home/tex.nix
+    ./home/ghostty.nix
   ];
 
   home.username = "amemiya";
@@ -14,6 +15,9 @@
 
   #Packages
   home.packages = with pkgs; [
+    julia-bin
+    ghostty-bin
+    ninja
     gcc
     gnumake
     github-copilot-cli

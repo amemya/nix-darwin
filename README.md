@@ -35,12 +35,6 @@ scutil --get LocalHostName > /tmp/.nix-darwin-hostname && sudo darwin-rebuild sw
 
 ## 管理されている主なツール・パッケージ
 
-### Homebrew (Casks / Brews)
-- iTerm2
-- Warp
-- Scroll Reverser
-- juliaup
-
 ### 開発・コマンドラインツール (Home Manager)
 - **言語/ランタイム**: Go, Zig, Node.js, OpenJDK, .NET SDK, uv (Python), Gauche
 - **ツール**: CMake, Git, GitHub CLI (`gh`), `git-lfs`, GnuPG

@@ -19,14 +19,6 @@
       STM32CubeMX_PATH = "/Applications/STMicroelectronics/STM32CubeMX.app/Contents/Resources";
     };
 
-    profileExtra = ''
-      # Homebrew (auto-detect Intel or Apple Silicon)
-      if [ "$(uname -m)" = "arm64" ]; then
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-      else
-        eval "$(/usr/local/bin/brew shellenv)"
-      fi
-    '';
 
     initContent = ''
       # PATH additions

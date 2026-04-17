@@ -51,20 +51,6 @@
       nixpkgs.hostPlatform = builtins.currentSystem;
       nixpkgs.config.allowUnfree = true;
       
-      #brew
-      homebrew = {
-        enable = true;
-
-        brews = [
-          "juliaup"
-        ];
-
-        casks = [
-          "scroll-reverser"
-          "iterm2"
-          "warp"
-        ];
-      };
 
 
       users.users.amemiya = {
