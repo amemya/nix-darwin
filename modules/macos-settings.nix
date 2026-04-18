@@ -2,6 +2,11 @@
 
 {
   # ──────────────────────────────────────────────
+  # Security: sudo with TouchID
+  # ──────────────────────────────────────────────
+  security.pam.services.sudo_local.touchIdAuth = true;
+
+  # ──────────────────────────────────────────────
   # Network > Firewall
   # ──────────────────────────────────────────────
   networking.applicationFirewall.enable = true; # Firewall: on
