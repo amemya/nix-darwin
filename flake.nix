@@ -67,12 +67,13 @@
     # $ darwin-rebuild switch --flake . --impure
     darwinConfigurations.${hostname} = nix-darwin.lib.darwinSystem {
       modules =
-      [ configuration 
+      [ configuration
         home-manager.darwinModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
         }
+        ./modules/macos-settings.nix
       ];
     };
   };
