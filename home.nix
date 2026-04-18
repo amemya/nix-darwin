@@ -15,7 +15,7 @@
 
   #Packages
   home.packages = with pkgs; [
-    julia-bin
+    (julia-bin.overrideAttrs (old: { doInstallCheck = false; }))
     ghostty-bin
     ninja
     gcc
