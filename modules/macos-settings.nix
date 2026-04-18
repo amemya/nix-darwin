@@ -24,7 +24,7 @@
     show-recents = true;             # Show suggested and recent apps in Dock
     expose-group-apps = false;      # Mission Control: アプリごとのグループ化 off
 
-    # Hot Corners (1=無効, 2=MC, 3=AppWin, 4=Desktop, 10=画面消, 11=Launchpad, 12=通知センター, 13=ロック)
+    # Hot Corners (1=無効, 2=MC, 3=AppWin, 4=Desktop, 10=画面消, 11=Apps/Launchpad, 12=通知センター, 13=ロック)
     wvous-tl-corner = 10; # 左上: Put Display to Sleep
     wvous-tr-corner = 12; # 右上: Notification Center
     wvous-bl-corner = 1;  # 左下: 無効
@@ -83,7 +83,7 @@
 
     # Lock Screen: Turn Display off on battery when inactive: 5 min
     # 確認: pmset -g custom | grep -A5 "Battery Power"
-    pmset -b displaysleep 5 || true
+    pmset -b displaysleep 5 2>/dev/null || true
 
     # Trackpad: Use Trackpad for Dragging on, Without Drag Lock
     sudo -u amemiya defaults write com.apple.AppleMultitouchTrackpad Dragging    -bool true
