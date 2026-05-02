@@ -2,9 +2,9 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      # You should generate this file using `nixos-generate-config` and place it here.
-      # ./hardware-configuration.nix
+    [ # Include the results of the hardware scan from the local machine.
+      # We can read this directly from /etc/nixos because we build with --impure.
+      /etc/nixos/hardware-configuration.nix
     ];
 
   # Bootloader.
