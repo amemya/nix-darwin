@@ -7,11 +7,7 @@
       (./hardware + "/${nixosHostname}.nix")
     ];
 
-  # Bootloader.
-  # Adjust these according to your system's boot setup.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.consoleLogLevel = 3;
+  # Bootloader settings have been moved to hardware-specific configuration files
 
   # networking.hostName is injected dynamically via flake.nix
 
