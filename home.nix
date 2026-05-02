@@ -15,28 +15,22 @@
 
   #Packages
   home.packages = with pkgs; [
-    (julia-bin.overrideAttrs (old: { doInstallCheck = false; }))
     ninja
     gcc
     gnumake
     github-copilot-cli
     gomi
     tree-sitter
-    sqlitebrowser
     iperf3
     eza
     exiftool
     cmake
-    emacs
-    yt-dlp
     inetutils
     pnpm
     actionlint
     starship
     nodejs
-    openjdk
     _7zz
-    dotnet-sdk
     sl
     uv
     gauche
@@ -46,12 +40,18 @@
     gh
     htop
     gnupg
-    ffmpeg
     fastfetch
     zig
   ] ++ lib.optionals pkgs.stdenv.isDarwin [
+    (julia-bin.overrideAttrs (old: { doInstallCheck = false; }))
+    sqlitebrowser
+    emacs
+    dotnet-sdk
+    openjdk
+    yt-dlp
     ghostty-bin
     pinentry_mac
+    ffmpeg
   ] ++ lib.optionals pkgs.stdenv.isLinux [
     pinentry-curses
   ];
