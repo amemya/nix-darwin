@@ -15,6 +15,10 @@
 
   # networking.hostName is injected dynamically via flake.nix
 
+  #swapfile
+  swapDevices = [ { device = "/swapfile"; size = 4096; } ];
+  zramSwap.enable = true;
+
   # Enable networking
   networking.networkmanager.enable = true;
 
