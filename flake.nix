@@ -69,7 +69,7 @@
     # Build NixOS flake using:
     # $ sudo nixos-rebuild switch --flake . --impure
     nixosConfigurations.${nixosHostname} = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux"; # Adjust architecture if needed (e.g. aarch64-linux)
+      system = builtins.currentSystem; # Automatically detects x86_64-linux or aarch64-linux
       modules = [
         ./nixos/configuration.nix
         ./modules/common.nix
