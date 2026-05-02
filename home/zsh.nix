@@ -40,6 +40,22 @@
       mkcdg() {
         mkcd "$1" && git init
       }
+    '' + lib.optionalString pkgs.stdenv.isDarwin ''
+
+      deploy-nixos() {
+        if [ "$#" -ne 2 ]; then
+          echo "Usage: deploy-nixos <user@ip> <hostname>"
+          echo "Example: deploy-nixos amemiya@192.168.1.10 raspberrypi"
+          return 1
+        fi
+        
+        local TARGET="$1"
+        local HOSTNAME="$2"
+        
+        echo "$HOSTNAME" > /tmp/.nixos-hostname
+        echo "Evaluating on Mac and deploying to $TARGET ($HOSTNAME)..."
+        nix run nixpkgs#nixos-rebuild -- switch --flake ~/.config/nix-darwin --target-host "$TARGET" --build-host "$TARGET" --use-remote-sudo --impure
+      }
     '';
   };
 }

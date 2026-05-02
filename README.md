@@ -70,10 +70,19 @@ nrs
 scutil --get LocalHostName > /tmp/.nix-darwin-hostname && sudo darwin-rebuild switch --flake ~/.config/nix-darwin --impure
 ```
 
-**NixOS の場合:**
+**NixOS の場合 (ローカル実行):**
 ```bash
 hostname > /tmp/.nixos-hostname && sudo nixos-rebuild switch --flake ~/.config/nix-darwin --impure
 ```
+
+**macOS から NixOS へのリモートデプロイ:**
+ラズパイ等のメモリが少ないデバイス向けに、Mac側で重い評価処理を行ってからネットワーク越しにシステムを適用するコマンドを用意しています。
+
+```bash
+deploy-nixos <ユーザー名@ターゲットIP> <ホストネーム>
+# 例: deploy-nixos amemiya@192.168.1.10 raspberrypi
+```
+※ **前提条件**: MacからターゲットへSSH公開鍵認証で接続可能であり、リモート側で sudo 実行が可能な状態である必要があります。
 
 ## 管理されている主なツール・パッケージ
 
