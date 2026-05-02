@@ -54,7 +54,7 @@
         
         echo "$HOSTNAME" > /tmp/.nixos-hostname
         echo "Evaluating on Mac and deploying to $TARGET ($HOSTNAME)..."
-        nix run nixpkgs#nixos-rebuild -- switch --flake ~/.config/nix-darwin --target-host "$TARGET" --build-host "$TARGET" --sudo --impure
+        nix run nixpkgs#nixos-rebuild -- switch --flake ~/.config/nix-darwin --target-host "$TARGET" --sudo --impure
       }
     '';
   };
