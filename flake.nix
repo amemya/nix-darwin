@@ -70,6 +70,7 @@
     # $ sudo nixos-rebuild switch --flake . --impure
     nixosConfigurations.${nixosHostname} = nixpkgs.lib.nixosSystem {
       system = builtins.currentSystem; # Automatically detects x86_64-linux or aarch64-linux
+      specialArgs = { inherit nixosHostname; };
       modules = [
         ./nixos/configuration.nix
         ./modules/common.nix

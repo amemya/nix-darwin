@@ -1,10 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixosHostname, ... }:
 
 {
   imports =
-    [ # Include the results of the hardware scan from the local machine.
-      # We can read this directly from /etc/nixos because we build with --impure.
-      /etc/nixos/hardware-configuration.nix
+    [ 
+      # Include the results of the hardware scan for the specific machine.
+      (./hardware + "/${nixosHostname}.nix")
     ];
 
   # Bootloader.
