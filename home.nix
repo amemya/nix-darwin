@@ -7,7 +7,6 @@
     ./home/starship.nix
     ./home/neovim.nix
     ./home/tex.nix
-  ] ++ lib.optionals pkgs.stdenv.isDarwin [
     ./home/ghostty.nix
   ];
 

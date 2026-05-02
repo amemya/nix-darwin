@@ -1,6 +1,6 @@
-{ config, pkgs, ... }: 
+{ config, pkgs, lib, ... }: 
 
-{
+lib.mkIf pkgs.stdenv.isDarwin {
   programs.ghostty = {
     enable = true;
     package = pkgs.ghostty-bin;
