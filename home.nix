@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -7,16 +7,16 @@
     ./home/starship.nix
     ./home/neovim.nix
     ./home/tex.nix
+  ] ++ lib.optionals pkgs.stdenv.isDarwin [
     ./home/ghostty.nix
   ];
 
   home.username = "amemiya";
-  home.homeDirectory = "/Users/amemiya";
+  home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/amemiya" else "/home/amemiya";
 
   #Packages
   home.packages = with pkgs; [
     (julia-bin.overrideAttrs (old: { doInstallCheck = false; }))
-    ghostty-bin
     ninja
     gcc
     gnumake
@@ -47,14 +47,20 @@
     gh
     htop
     gnupg
-    pinentry_mac
     ffmpeg
     fastfetch
     zig
+  ] ++ lib.optionals pkgs.stdenv.isDarwin [
+    ghostty-bin
+    pinentry_mac
+  ] ++ lib.optionals pkgs.stdenv.isLinux [
+    pinentry-curses
   ];
 
-  home.file.".gnupg/gpg-agent.conf".text = ''
+  home.file.".gnupg/gpg-agent.conf".text = if pkgs.stdenv.isDarwin then ''
     pinentry-program ${pkgs.pinentry_mac}/bin/pinentry-mac
+  '' else ''
+    pinentry-program ${pkgs.pinentry-curses}/bin/pinentry
   '';
 
   home.stateVersion = "24.11";

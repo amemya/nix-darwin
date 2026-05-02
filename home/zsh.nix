@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   programs.zsh = {
@@ -7,24 +7,27 @@
     shellAliases = {
       ll = "ls -la";
       ls = "eza --icons";
-      nrs = "scutil --get LocalHostName > /tmp/.nix-darwin-hostname && sudo darwin-rebuild switch --flake ~/.config/nix-darwin --impure";
       cls = "clear";
       "えぃt" = "exit";
       rm = "gomi";
-
+    } // lib.optionalAttrs pkgs.stdenv.isDarwin {
+      nrs = "scutil --get LocalHostName > /tmp/.nix-darwin-hostname && sudo darwin-rebuild switch --flake ~/.config/nix-darwin --impure";
+    } // lib.optionalAttrs pkgs.stdenv.isLinux {
+      nrs = "hostname > /tmp/.nixos-hostname && sudo nixos-rebuild switch --flake ~/.config/nix-darwin --impure";
     };
 
     sessionVariables = {
       GPG_TTY = "$(tty)";
+    } // lib.optionalAttrs pkgs.stdenv.isDarwin {
       STM32CubeMX_PATH = "/Applications/STMicroelectronics/STM32CubeMX.app/Contents/Resources";
     };
 
 
     initContent = ''
       # PATH additions
-      export PATH="$PATH:/Users/amemiya/go/bin"
-      export PATH="$PATH:/Users/amemiya/.local/bin"
-      export PATH="/Users/amemiya/.antigravity/antigravity/bin:$PATH"
+      export PATH="$PATH:$HOME/go/bin"
+      export PATH="$PATH:$HOME/.local/bin"
+      export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
 
       # zsh options
       unsetopt nomatch

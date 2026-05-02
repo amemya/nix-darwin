@@ -13,30 +13,21 @@
   let
     # Automatically detect the hostname of the current machine.
     # Read from a temp file written by the nrs alias before darwin-rebuild runs.
-    hostname = builtins.replaceStrings ["\n"] [""]
-      (builtins.readFile /tmp/.nix-darwin-hostname);
-    configuration = { pkgs, ... }: {
-      # List packages installed in system profile. To search by name, run:
-      # $ nix-env -qaP | grep wget
-      environment.systemPackages =
-        [ pkgs.vim
-        ];
+    hostname = if builtins.pathExists /tmp/.nix-darwin-hostname then
+      builtins.replaceStrings ["\n"] [""] (builtins.readFile /tmp/.nix-darwin-hostname)
+    else
+      "macbook";
 
-      # Necessary for using flakes on this system.
-      nix.settings.experimental-features = "nix-command flakes";
+    nixosHostname = if builtins.pathExists /tmp/.nixos-hostname then
+      builtins.replaceStrings ["\n"] [""] (builtins.readFile /tmp/.nixos-hostname)
+    else
+      "nixos";
 
-      # Enable alternative shell support in nix-darwin.
-      programs.zsh.enable = true;
-
+    darwinConfiguration = { pkgs, ... }: {
       # Ensure GUI apps (VS Code etc.) can find Nix-managed binaries
       environment.systemPath = [
         "/etc/profiles/per-user/amemiya/bin"
         "/run/current-system/sw/bin"
-      ];
-
-      # Install Nerd Fonts
-      fonts.packages = [
-        pkgs.hackgen-nf-font
       ];
 
       # Set Git commit hash for darwin-version.
@@ -49,9 +40,6 @@
       # The platform the configuration will be used on.
       # Automatically detect Intel (x86_64-darwin) or Apple Silicon (aarch64-darwin).
       nixpkgs.hostPlatform = builtins.currentSystem;
-      nixpkgs.config.allowUnfree = true;
-      
-
 
       users.users.amemiya = {
         name = "amemiya";
@@ -67,13 +55,33 @@
     # $ darwin-rebuild switch --flake . --impure
     darwinConfigurations.${hostname} = nix-darwin.lib.darwinSystem {
       modules =
-      [ configuration
+      [ darwinConfiguration
         home-manager.darwinModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
         }
         ./modules/macos-settings.nix
+        ./modules/common.nix
+      ];
+    };
+
+    # Build NixOS flake using:
+    # $ sudo nixos-rebuild switch --flake . --impure
+    nixosConfigurations.${nixosHostname} = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux"; # Adjust architecture if needed (e.g. aarch64-linux)
+      modules = [
+        ./nixos/configuration.nix
+        ./modules/common.nix
+        {
+          networking.hostName = nixosHostname;
+        }
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users."amemiya" = import ./home.nix;
+        }
       ];
     };
   };
