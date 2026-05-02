@@ -2,6 +2,10 @@
 
 {
   # ──────────────────────────────────────────────
+  # Nix & Linux Builder
+  # ──────────────────────────────────────────────
+  nix.linux-builder.enable = true;
+  # ──────────────────────────────────────────────
   # Security: sudo with TouchID
   # ──────────────────────────────────────────────
   security.pam.services.sudo_local.touchIdAuth = true;
