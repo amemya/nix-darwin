@@ -73,8 +73,8 @@
       system = "aarch64-linux";
       specialArgs = { inherit nixosHostname; };
       modules = [
-        # Automatically configures optimal kernel params, bootloader, and USB drivers for Raspberry Pi
-        nixos-hardware.nixosModules.raspberry-pi-4
+        # Configures kernel, bootloader, and hardware quirks for Raspberry Pi 3B+
+        nixos-hardware.nixosModules.raspberry-pi-3
         ./nixos/configuration.nix
         ./modules/common.nix
         {
