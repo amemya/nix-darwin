@@ -7,9 +7,10 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, nixos-hardware, ... }:
   let
     # Automatically detect the hostname of the current machine.
     # Read from a temp file written by the nrs alias before darwin-rebuild runs.
@@ -72,6 +73,8 @@
       system = builtins.currentSystem; # Automatically detects x86_64-linux or aarch64-linux
       specialArgs = { inherit nixosHostname; };
       modules = [
+        # Automatically configures optimal kernel params, bootloader, and USB drivers for Raspberry Pi
+        nixos-hardware.nixosModules.raspberry-pi-4
         ./nixos/configuration.nix
         ./modules/common.nix
         {
