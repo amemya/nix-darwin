@@ -24,5 +24,10 @@
 
   swapDevices = [ ];
 
+  # Force the use of the standard mainline kernel instead of the Raspberry Pi specific fork.
+  # The rpi fork is often missing from the binary cache, causing a 2.5 hour compilation from source
+  # which runs out of disk space on the Linux VM.
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
+
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }
