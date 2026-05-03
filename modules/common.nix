@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   # List packages installed in system profile.
@@ -8,10 +8,14 @@
   ];
 
   users.users.amemiya = {
+    shell = lib.mkDefault pkgs.zsh;
+  } // lib.optionalAttrs pkgs.stdenv.isLinux {
     isNormalUser = true;
     description = "amemiya";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
-    shell = pkgs.zsh;
+  } // lib.optionalAttrs pkgs.stdenv.isDarwin {
+    name = "amemiya";
+    home = "/Users/amemiya";
   };
 
   # Necessary for using flakes on this system.

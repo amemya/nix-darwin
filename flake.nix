@@ -70,7 +70,7 @@
     # Build NixOS flake using:
     # $ sudo nixos-rebuild switch --flake . --impure
     nixosConfigurations.${nixosHostname} = nixpkgs.lib.nixosSystem {
-      system = builtins.currentSystem; # Automatically detects x86_64-linux or aarch64-linux
+      system = "aarch64-linux";
       specialArgs = { inherit nixosHostname; };
       modules = [
         # Automatically configures optimal kernel params, bootloader, and USB drivers for Raspberry Pi
