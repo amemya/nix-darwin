@@ -24,8 +24,11 @@
 
   swapDevices = [ ];
 
-  # nixos-hardware manages the appropriate kernel for Raspberry Pi 4.
-  # Do not override with lib.mkForce as it disables RPi-specific USB/HID drivers.
+  # Use mainline kernel to avoid building linuxPackages_rpi4 from source
+  # (2.5h compile that exhausts VM disk space). Normal priority is sufficient
+  # to override nixos-hardware's mkDefault without breaking its other settings.
+  # USB/keyboard works because xhci_pci + usbhid are loaded via initrd above.
+  boot.kernelPackages = pkgs.linuxPackages;
 
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }
