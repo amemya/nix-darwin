@@ -9,6 +9,9 @@
 
   # Bootloader settings have been moved to hardware-specific configuration files
 
+  # Include terminfo for all terminals (fixes xterm-ghostty not found when SSHing from Mac)
+  environment.enableAllTerminfo = true;
+
   # networking.hostName is injected dynamically via flake.nix
 
   #swapfile
