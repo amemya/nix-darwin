@@ -7,6 +7,13 @@
     wget
   ];
 
+  users.users.amemiya = {
+    isNormalUser = true;
+    description = "amemiya";
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    shell = pkgs.zsh;
+  };
+
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 

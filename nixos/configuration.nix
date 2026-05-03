@@ -18,6 +18,15 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Allow passwordless sudo for the wheel group (amemiya)
+  # This prevents lockouts since we don't have a password set
+  security.sudo.wheelNeedsPassword = false;
+
+  # Allow Mac to SSH into this NixOS machine
+  users.users.amemiya.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIu8coW+p5AeBRx2KkxWSHJ92u3fwK3v2GP/spigFCGp"
+  ];
+
   # Set your time zone.
   time.timeZone = "Asia/Tokyo";
 
