@@ -1,16 +1,26 @@
 return {
   {
+    -- Provides default configs for many LSP servers (data-only, no setup() calls)
     "neovim/nvim-lspconfig",
+    lazy = true,
+  },
+  {
+    "hrsh7th/cmp-nvim-lsp",
+    lazy = true,
+  },
+  {
+    -- Actual LSP bootstrap: use Neovim 0.11+ native API
+    "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
     },
-    event = { "BufReadPre", "BufNewFile" },
     config = function()
-      local lspconfig = require("lspconfig")
+      -- Merge cmp capabilities into LSP defaults
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       -- Go
-      lspconfig.gopls.setup({
+      vim.lsp.config("gopls", {
         capabilities = capabilities,
         settings = {
           gopls = {
@@ -22,6 +32,8 @@ return {
           },
         },
       })
+
+      vim.lsp.enable("gopls")
 
       -- Keymaps (only active when LSP is attached)
       vim.api.nvim_create_autocmd("LspAttach", {
