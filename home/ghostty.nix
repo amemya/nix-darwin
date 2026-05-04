@@ -12,6 +12,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
       cursor-style = "block";
       window-padding-x = 10;
       window-padding-y = 10;
+      term = "xterm-256color";
     };
   };
 }
