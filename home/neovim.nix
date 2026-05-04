@@ -7,6 +7,9 @@
     vimAlias = true;
     withRuby = false;
     withPython3 = false;
+    extraPackages = with pkgs; [
+      gopls
+    ];
   };
 
   #nvim config file
