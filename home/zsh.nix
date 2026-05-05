@@ -40,6 +40,15 @@
       mkcdg() {
         mkcd "$1" && git init
       }
+
+      if [ -z "$SCRIPT_RECORDING_STARTED" ]; then
+        export SCRIPT_RECORDING_STARTED=1
+        LOG_DIR="$HOME/.terminal_logs/$(date +%Y%m)"
+        mkdir -p "$LOG_DIR"
+        LOG_FILE="$LOG_DIR/$(date +%Y%m%d_%H%M%S)_work.log"
+        script -q "$LOG_FILE"
+        exit
+    fi
     '' + lib.optionalString pkgs.stdenv.isDarwin ''
 
       deploy-nixos() {
