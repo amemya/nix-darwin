@@ -48,7 +48,7 @@
         LOG_FILE="$LOG_DIR/$(date +%Y%m%d_%H%M%S)_work.log"
         script -q "$LOG_FILE"
         exit
-    fi
+      fi
     '' + lib.optionalString pkgs.stdenv.isDarwin ''
 
       deploy-nixos() {
