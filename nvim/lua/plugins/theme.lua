@@ -6,7 +6,7 @@ return {
     config = function()
       vim.o.background = 'dark'
       require('vscode').setup({
-        transparent = false,
+        transparent = true,
         italic_comments = true,
       })
       vim.cmd.colorscheme("vscode")
