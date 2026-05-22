@@ -53,6 +53,7 @@
     ghostty-bin
     pinentry_mac
     ffmpeg
+    (pkgs.callPackage ./pkgs/repobar.nix {})
   ] ++ lib.optionals pkgs.stdenv.isLinux [
     pinentry-curses
   ];
