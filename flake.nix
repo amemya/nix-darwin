@@ -12,6 +12,9 @@
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, nixos-hardware, ... }:
   let
+    supportedSystems = [ "aarch64-darwin" "x86_64-darwin" "aarch64-linux" "x86_64-linux" ];
+    forEachSystem = nixpkgs.lib.genAttrs supportedSystems;
+
     # Automatically detect the hostname of the current machine.
     # Read from a temp file written by the nrs alias before darwin-rebuild runs.
     hostname = if builtins.pathExists /tmp/.nix-darwin-hostname then
@@ -88,5 +91,14 @@
         }
       ];
     };
+
+    # Development utilities
+    # $ nix run .#update-coderabbit-cli
+    packages = forEachSystem (system:
+      let pkgs = import nixpkgs { inherit system; };
+      in {
+        update-coderabbit-cli = pkgs.callPackage ./pkgs/update-coderabbit-cli.nix {};
+      }
+    );
   };
 }

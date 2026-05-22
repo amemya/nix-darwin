@@ -4,10 +4,8 @@
 # as a Nix package for declarative, reproducible installs.
 #
 # To update:
-#   1. Check the latest version:  curl -fsSL https://cli.coderabbit.ai/releases/latest/VERSION
-#   2. Prefetch the new hashes:   nix-prefetch-url "https://cli.coderabbit.ai/releases/<version>/coderabbit-<os>-<arch>.zip"
-#   3. Convert to SRI format:     nix hash convert --hash-algo sha256 --to sri <hash>
-#   4. Update `version` and the hashes below.
+#   nix run .#update-coderabbit-cli              # latest version
+#   nix run .#update-coderabbit-cli -- 0.6.0     # specific version
 
 { lib, stdenv, fetchurl, unzip, autoPatchelfHook }:
 
