@@ -42,6 +42,7 @@
     gnupg
     fastfetch
     zig
+    (pkgs.callPackage ./pkgs/coderabbit-cli.nix {})
   ] ++ lib.optionals pkgs.stdenv.isDarwin [
     (julia-bin.overrideAttrs (old: { doInstallCheck = false; }))
     sqlitebrowser
