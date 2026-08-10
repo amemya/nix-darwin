@@ -10,7 +10,7 @@
 { lib, stdenv, fetchurl, unzip, autoPatchelfHook }:
 
 let
-  version = "0.5.1";
+  version = "0.6.5";
 
   # Map Nix system identifiers to CodeRabbit's naming convention
   # (matches the URL scheme used by install.sh)
@@ -18,22 +18,22 @@ let
     "aarch64-darwin" = {
       os = "darwin";
       arch = "arm64";
-      hash = "sha256-y3HFloerlzO9hYl6csiV74culKGmz8DP340klFUo+6I=";
+      hash = "sha256-V1MNVXym919ItsJkoQ2BabUjNL6ZHEhb4kApVL22zsw=";
     };
     "x86_64-darwin" = {
       os = "darwin";
       arch = "x64";
-      hash = "sha256-fRodzcsf/Aiig1vl8GCy8M2ITmhzBkkmUMCp4IScwFw=";
+      hash = "sha256-/y3hqI/tcrS+qYyAaoHGfpq/0dDMYkRdw19KlF9uVuo=";
     };
     "aarch64-linux" = {
       os = "linux";
       arch = "arm64";
-      hash = "sha256-RioZvIf3mtbwb58K8YB21Cb3yjmkXbBwUjA76fHHsa4=";
+      hash = "sha256-8FYSDvih62Qc+5tAu9NtrSg180Gh3KCep3Z6lMHoMJs=";
     };
     "x86_64-linux" = {
       os = "linux";
       arch = "x64";
-      hash = "sha256-+iuoLgYemQDvoyU9wSMk2tX8MeMAlgndKx7Gk/0nBnI=";
+      hash = "sha256-goDc+CKNCHt4++iVW4xe8/g/c/1G2aAJRTlIVH0wSpk=";
     };
   };
 

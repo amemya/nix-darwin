@@ -15,6 +15,8 @@
 
   #Packages
   home.packages = with pkgs; [
+    mise
+    direnv
     ninja
     gcc
     gnumake

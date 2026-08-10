@@ -28,6 +28,8 @@
       export PATH="$PATH:$HOME/go/bin"
       export PATH="$PATH:$HOME/.local/bin"
       export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
+      
+      eval "$(direnv hook zsh)"
 
       # zsh options
       unsetopt nomatch
