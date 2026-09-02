@@ -54,7 +54,13 @@
         name = "Nagisa";
         home = "/Users/Nagisa";
       };
-      system.primaryUser = "amemiya";
+      system.primaryUser = let
+        sudoUser = builtins.getEnv "SUDO_USER";
+        user = builtins.getEnv "USER";
+      in
+        if sudoUser != "" then sudoUser
+        else if user != "" then user
+        else "Nagisa";
       home-manager.users."amemiya" = import ./home.nix;
       home-manager.users."Nagisa" = import ./home.nix;
 

@@ -11,6 +11,7 @@
     signing = {
       format = "openpgp";
       signByDefault = true;
+      key = "4794FBF07213A5C0ABD41F4F63863DE0E1F372AD";
     };
 
     lfs.enable = true;
