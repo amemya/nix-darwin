@@ -31,6 +31,7 @@
       # Ensure GUI apps (VS Code etc.) can find Nix-managed binaries
       environment.systemPath = [
         "/etc/profiles/per-user/amemiya/bin"
+        "/etc/profiles/per-user/Nagisa/bin"
         "/run/current-system/sw/bin"
       ];
 
@@ -49,8 +50,13 @@
         name = "amemiya";
         home = "/Users/amemiya";
       };
+      users.users.Nagisa = {
+        name = "Nagisa";
+        home = "/Users/Nagisa";
+      };
       system.primaryUser = "amemiya";
       home-manager.users."amemiya" = import ./home.nix;
+      home-manager.users."Nagisa" = import ./home.nix;
 
     };
   in
@@ -88,6 +94,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users."amemiya" = import ./home.nix;
+          home-manager.users."Nagisa" = import ./home.nix;
         }
       ];
     };

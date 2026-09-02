@@ -3,6 +3,7 @@
 {
   programs.zsh = {
     enable = true;
+    completionInit = "autoload -U compinit && compinit -u";
 
     shellAliases = {
       ll = "ls -la";
@@ -11,9 +12,9 @@
       "えぃt" = "exit";
       rm = "gomi";
     } // lib.optionalAttrs pkgs.stdenv.isDarwin {
-      nrs = "scutil --get LocalHostName > /tmp/.nix-darwin-hostname && sudo darwin-rebuild switch --flake ~/.config/nix-darwin --impure";
+      nrs = "scutil --get LocalHostName | sudo tee /tmp/.nix-darwin-hostname >/dev/null && sudo darwin-rebuild switch --flake ~/.config/nix-darwin --impure";
     } // lib.optionalAttrs pkgs.stdenv.isLinux {
-      nrs = "hostname > /tmp/.nixos-hostname && sudo nixos-rebuild switch --flake ~/.config/nix-darwin --impure";
+      nrs = "hostname | sudo tee /tmp/.nixos-hostname >/dev/null && sudo nixos-rebuild switch --flake ~/.config/nix-darwin --impure";
     };
 
     sessionVariables = {
@@ -63,7 +64,7 @@
         local TARGET="$1"
         local HOSTNAME="$2"
         
-        echo "$HOSTNAME" > /tmp/.nixos-hostname
+        echo "$HOSTNAME" | sudo tee /tmp/.nixos-hostname >/dev/null
         echo "Evaluating on Mac and deploying to $TARGET ($HOSTNAME)..."
         nix run nixpkgs#nixos-rebuild -- switch --flake ~/.config/nix-darwin --target-host "$TARGET" --sudo --impure
       }

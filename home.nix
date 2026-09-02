@@ -10,8 +10,6 @@
     ./home/ghostty.nix
   ];
 
-  home.username = "amemiya";
-  home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/amemiya" else "/home/amemiya";
 
   #Packages
   home.packages = with pkgs; [
