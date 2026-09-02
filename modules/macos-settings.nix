@@ -80,6 +80,7 @@
   # ──────────────────────────────────────────────
   system.activationScripts.postActivation.text = ''
     echo "--- macos-settings: postActivation ---"
+    TARGET_USER="''${SUDO_USER:-$USER}"
 
     # Keyboard: Control → CapsLock (reverse mapping via hidutil)
     # 0x700000039 = CapsLock, 0x7000000E0 = Left Control
@@ -88,28 +89,28 @@
       {"HIDKeyboardModifierMappingSrc": 0x7000000E0, "HIDKeyboardModifierMappingDst": 0x700000039}
     ]}' > /dev/null 2>&1 || true
     # More Gestures > App Exposé: on (3本指スワイプ下で現在アプリのウィンドウ一覧)
-    sudo -u amemiya defaults write com.apple.dock showAppExposeGestureEnabled -bool true
+    sudo -u "$TARGET_USER" defaults write com.apple.dock showAppExposeGestureEnabled -bool true
 
     # Lock Screen: Turn Display off on battery when inactive: 5 min
     # 確認: pmset -g custom | grep -A5 "Battery Power"
     pmset -b displaysleep 5 2>/dev/null || true
 
     # Trackpad: Use Trackpad for Dragging on, Without Drag Lock
-    sudo -u amemiya defaults write com.apple.AppleMultitouchTrackpad Dragging    -bool true
-    sudo -u amemiya defaults write com.apple.AppleMultitouchTrackpad DragLock    -bool false
-    sudo -u amemiya defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Dragging -bool true
-    sudo -u amemiya defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad DragLock  -bool false
+    sudo -u "$TARGET_USER" defaults write com.apple.AppleMultitouchTrackpad Dragging    -bool true
+    sudo -u "$TARGET_USER" defaults write com.apple.AppleMultitouchTrackpad DragLock    -bool false
+    sudo -u "$TARGET_USER" defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Dragging -bool true
+    sudo -u "$TARGET_USER" defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad DragLock  -bool false
 
     # Keyboard: Press Fn key → Change Input Source
     # 0=絵文字パレット, 1=入力ソース切り替え, 2=F1〜F12
-    sudo -u amemiya defaults write com.apple.HIToolbox AppleFnUsageType -int 1
+    sudo -u "$TARGET_USER" defaults write com.apple.HIToolbox AppleFnUsageType -int 1
     # cfprefsd キャッシュをフラッシュして即時反映（しないと再ログインまで反映されない場合あり）
-    sudo -u amemiya killall cfprefsd 2>/dev/null || true
+    sudo -u "$TARGET_USER" killall cfprefsd 2>/dev/null || true
 
     # General > AirDrop: Everyone
-    sudo -u amemiya defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+    sudo -u "$TARGET_USER" defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
     # Displays: True Tone off
-    sudo -u amemiya defaults write com.apple.CoreBrightness "AllowHDR" -bool false 2>/dev/null || true
+    sudo -u "$TARGET_USER" defaults write com.apple.CoreBrightness "AllowHDR" -bool false 2>/dev/null || true
   '';
 }
