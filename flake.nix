@@ -107,10 +107,12 @@
 
     # Development utilities
     # $ nix run .#update-coderabbit-cli
+    # $ nix run .#update-antigravity-cli
     packages = forEachSystem (system:
       let pkgs = import nixpkgs { inherit system; };
       in {
         update-coderabbit-cli = pkgs.callPackage ./pkgs/update-coderabbit-cli.nix {};
+        update-antigravity-cli = pkgs.callPackage ./pkgs/update-antigravity-cli.nix {};
       }
     );
   };
