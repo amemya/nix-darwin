@@ -14,6 +14,9 @@
   #Packages
   home.packages = with pkgs; [
     mise
+    awscli
+    overmind
+    tmux
     direnv
     ninja
     gcc
